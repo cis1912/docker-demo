@@ -59,10 +59,16 @@ You can close out of your open container, but before continuing, make sure all y
 Run the 2048 docker image:
 
 ```
-$ docker run -it --rm alexwhen/docker-2048
+$ docker run -it --rm alexta69/metube
 ```
 
-This application exposes 2048 on port 80. Can you figure out how to expose the application on port 8080 on your machine? The [docker documentation](https://docs.docker.com/engine/reference/commandline/cli/) might help.
+Now it says that the application is running on port `___FILL_IN_PORT_HERE___`. Go to `localhost:___FILL_IN_PORT_HERE___` in your browser to see the application!
+
+Wait, actually we cannot see anything. Why is that? That's because by default, the container is running on a different network than your host machine. We need to expose the port on the container to the host machine.
+
+Can you figure out how to expose the application on port 8081 on your machine? The [docker documentation](https://docs.docker.com/engine/reference/commandline/cli/) might help.
+
+Now, let's try to actually try to download some youtube videos. We recommend this one: https://www.youtube.com/watch?v=xvFZjo5PgG0.
 
 If you have extra time right now, play around with some of the docker run flags. Some fun ones are `-v`, `-d`, `--name`, etc. You can check out the docker documentation for info on how these work. Also, you can google around and see if there are other interesting images. Maybe `python` or `node`?
 
@@ -74,14 +80,14 @@ There are many ways to do this, but we'd recommend using the `COPY` directive. H
 
 Once you think you've got the Dockerfile right, use `docker build . -t nginx-demo` to build the container to the name `nginx-demo`.
 
-When you've got the image built, try to run the container! Remember that the `nginx` image runs on port 80. Is there a way (using syntax you've already learned) to bind port 8080 on your machine to port 80 on the container?
+When you've got the image built, try to run the container! Remember that the `nginx` image runs on port 80. Is there a way (using syntax you've already learned) to bind port 8081 on your machine to port 80 on the container?
 
-If the container is running successfully, go to `localhost:8080` in your browser to see if it worked!
+If the container is running successfully, go to `localhost:8081` in your browser to see if it worked!
 
 If you've got some extra time here, you've got a few options:
 
-1. Play 2048
-2. Try to get live webpage reloading working using volume binding instead of COPY
+1. Download some more youtube videos
+2. Try to get the downloaded content to be persistent (if you turned off the docker container and restarted it,previous downloads still exist) using volume mounts.
 3. Go for the extra credit below
 
 ### Extra Credit - Reverse Proxy
@@ -91,6 +97,6 @@ While Nginx can be used as a standalone webserver, it's usually used as a [rever
 For extra credit, implement the following behavior using only the docker CLI and the nginx configuration file:
 
 - If the webserver is accessed at `localhost`, serve the website we've given to you here.
-- If the webserver is accessed at `127.0.0.1`, forward the request to the `2048` container.
+- If the webserver is accessed at `127.0.0.1`, forward the request to the `YouTube Downloader` container.
 
-Concretely, if you go to `localhost:8080` in your browser, you should see the site we gave you. If you go to `127.0.0.1:8080`, you should see 2048.
+Concretely, if you go to `localhost:8081` in your browser, you should see the site we gave you. If you go to `127.0.0.1:8081`, you should see Youtube Downloader.
